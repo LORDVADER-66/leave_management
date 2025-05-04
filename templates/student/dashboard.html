@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../static/css/style.css" />
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Welcome, <span id="usnPlaceholder" class="text-primary"></span></h2>
+      <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Logout</button>
+    </div>
+
+
+    <div class="container mt-4">
+        <div class="row g-4">
+          <!-- Apply for Leave -->
+          <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body text-center">
+                <h4 class="card-title">Apply for Leave</h4>
+                <p class="card-text">Submit a new leave request with dates and reason.</p>
+                <a href="apply_leave.html" class="btn btn-primary">Go</a>
+              </div>
+            </div>
+          </div>
+      
+          <!-- View Attendance -->
+          <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body text-center">
+                <h4 class="card-title">View Attendance</h4>
+                <p class="card-text">Check your attendance record for each subject.</p>
+                <a href="attendance.html" class="btn btn-primary">Go</a>
+              </div>
+            </div>
+          </div>
+      
+          <!-- View Leave Status -->
+          <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body text-center">
+                <i class="bi bi-file-earmark-text fs-1 text-info mb-3"></i>
+                <h5 class="card-title">Leave Status</h5>
+                <p class="card-text">Check status of your leave applications.</p>
+                <a href="leave_status.html" class="btn btn-primary">View Status</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  
+
+  <script src="../../static/js/main.js"></script>
+</body>
+</html>

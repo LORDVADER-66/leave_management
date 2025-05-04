@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leave Status</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h2 class="mb-4">My Leave Applications</h2>
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Subject</th>
+          <th>Type</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Reason</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="leaveTableBody">
+        <!-- JS will populate this -->
+      </tbody>
+    </table>
+    <a href="dashboard.html" class="btn btn-secondary mt-3">Back to Dashboard</a>
+  </div>
+
+  <script src="../../static/js/leave_status.js"></script>
+</body>
+</html>
