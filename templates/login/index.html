@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LeavePortal Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/css/style.css" />
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f5f8fa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .login-container {
-      background: white;
-      padding: 2.5rem 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
-    .login-container h2 {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    .login-container p {
-      font-size: 0.95rem;
-      color: #777;
-    }
-    .login-btn {
-      margin-top: 1.5rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to College LMS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .login-button:hover {
+            background-color: #1e40af;
+        }
+    </style>
 </head>
 <body>
-  <div class="login-container">
-    <!-- You can add a logo here if desired -->
-    <h2>Welcome to LeavePortal</h2>
-    <p>Please select your role to login</p>
-    <div class="d-grid gap-3 login-btn">
-      <a href="student_login.html" class="btn btn-primary btn-lg">Student Login</a>
-      <a href="faculty_login.html" class="btn btn-outline-primary btn-lg">Faculty Login</a>
+    <div class="login-container">
+        <h2 class="login-title">Welcome to LMS</h2>
+        <a href="student_login.html" class="login-button">Student Login</a>
+        <a href="faculty_login.html" class="login-button">Faculty Login</a>
     </div>
-  </div>
 </body>
 </html>

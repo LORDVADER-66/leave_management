@@ -1,25 +1,46 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const historyTable = document.getElementById("leaveHistoryTableBody");
-    const history = JSON.parse(localStorage.getItem("leaveHistory")) || [];
-  
-    if (history.length === 0) {
-      historyTable.innerHTML = `<tr><td colspan="8" class="text-center text-muted">No reviewed applications yet.</td></tr>`;
-      return;
+document.addEventListener('DOMContentLoaded', () => {
+    const leaveHistoryTableBody = document.querySelector('.leave-history-table tbody');
+    const noHistoryMessage = document.querySelector('.no-history-message');
+
+    // Function to fetch faculty leave history from the backend
+    async function fetchLeaveHistory() {
+        try {
+            // Replace '/api/faculty/leave-history' with the actual API endpoint
+            const response = await fetch('/api/faculty/leave-history');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching leave history:', error);
+            leaveHistoryTableBody.innerHTML = `<tr><td colspan="8" class="error-message">Failed to load leave history. Please try again later.</td></tr>`;
+            return [];
+        }
     }
-  
-    history.forEach((req) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${req.usn || "N/A"}</td>
-        <td>${req.subject}</td>
-        <td>${req.leaveType}</td>
-        <td>${req.startDate}</td>
-        <td>${req.endDate}</td>
-        <td>${req.reason}</td>
-        <td><span class="badge bg-${req.status === "Approved" ? "success" : "danger"}">${req.status}</span></td>
-        <td>${new Date(req.decidedAt).toLocaleDateString()}</td>
-      `;
-      historyTable.appendChild(row);
-    });
-  });
-  
+
+    // Function to display leave history in the table
+    function displayLeaveHistory(history) {
+        if (history && history.length > 0) {
+            noHistoryMessage.style.display = 'none';
+            leaveHistoryTableBody.innerHTML = history.map(record => `
+                <tr>
+                    <td>${record.student_name}</td>
+                    <td>${record.leave_type}</td>
+                    <td>${record.subject}</td>
+                    <td>${record.start_date}</td>
+                    <td>${record.end_date}</td>
+                    <td>${record.reason}</td>
+                    <td><span class="status-badge status-${record.status.toLowerCase()}">${record.status}</span></td>
+                    <td>${record.action_taken_on}</td>
+                </tr>
+            `).join('');
+        } else {
+            leaveHistoryTableBody.innerHTML = '';
+            noHistoryMessage.style.display = 'block';
+        }
+    }
+
+    // Fetch and display leave history when the page loads
+    fetchLeaveHistory().then(displayLeaveHistory);
+});

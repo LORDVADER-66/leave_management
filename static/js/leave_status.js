@@ -1,39 +1,47 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const usn = localStorage.getItem("current_usn");
-    const tableBody = document.getElementById("leaveTableBody");
-  
-    if (!usn) {
-      alert("Not logged in.");
-      window.location.href = "../login/student_login.html";
-      return;
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to fetch leave status data from the backend API
+    async function fetchLeaveStatus() {
+        try {
+            // Replace '/api/student/leave-status' with the actual API endpoint
+            const response = await fetch('/api/student/leave-status');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching leave status:', error);
+            // Display an error message to the user
+            const tableBody = document.querySelector('.leave-status-table tbody');
+            tableBody.innerHTML = `<tr><td colspan="6" class="error-message">Failed to load leave status. Please try again later.</td></tr>`;
+            return []; // Return an empty array in case of an error
+        }
     }
-  
-    const allRequests = JSON.parse(localStorage.getItem("leaveRequests")) || [];
-    const myRequests = allRequests.filter((req) => req.usn === usn);
-  
-    if (myRequests.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-muted">No leave applications found.</td></tr>`;
-    } else {
-      myRequests.forEach((req) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${req.subject}</td>
-          <td>${req.leaveType}</td>
-          <td>${req.startDate}</td>
-          <td>${req.endDate}</td>
-          <td>${req.reason}</td>
-          <td><span class="badge ${getStatusClass(req.status)}">${req.status}</span></td>
-        `;
-        tableBody.appendChild(row);
-      });
+
+    // Function to display leave status data in the table
+    function displayLeaveStatus(leaves) {
+        const tableBody = document.querySelector('.leave-status-table tbody');
+        const noLeavesMessage = document.querySelector('.no-leaves-message');
+
+        if (leaves && leaves.length > 0) {
+            noLeavesMessage.style.display = 'none';
+            tableBody.innerHTML = leaves.map(leave => `
+                <tr>
+                    <td>${leave.leave_type}</td>
+                    <td>${leave.subject}</td>
+                    <td>${leave.start_date}</td>
+                    <td>${leave.end_date}</td>
+                    <td>${leave.reason}</td>
+                    <td><span class="status-badge status-${leave.status.toLowerCase()}">${leave.status}</span></td>
+                </tr>
+            `).join('');
+        } else {
+            tableBody.innerHTML = '';
+            noLeavesMessage.style.display = 'block';
+        }
     }
-  
-    function getStatusClass(status) {
-      switch (status) {
-        case "Approved": return "bg-success";
-        case "Rejected": return "bg-danger";
-        default: return "bg-warning text-dark";
-      }
-    }
-  });
-  
+
+    // Fetch and display leave status when the page loads
+    fetchLeaveStatus()
+        .then(leaves => displayLeaveStatus(leaves));
+});
